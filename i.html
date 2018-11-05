@@ -1,0 +1,238 @@
+<!DOCTYPE html> 
+<html> 
+
+<head>
+	<title> Tasha </title>
+	
+	<style type="text/css">
+	.board {
+	  margin-left: 1%;
+	 	display: grid;
+		grid-template-columns: 0.2fr 0.4fr 0.4fr;
+		grid-template-rows: 1fr 4fr;
+        grid-gap: 3px;
+		position: relative;
+	}
+	.board-column {
+	  left: 0;
+	  right: 0; 
+	  margin: 0 1.5%;
+	  background: #f0f0f0;
+	  border-radius: 3px;
+	  z-index: 1;
+	}
+	.board-column.muuri-item-releasing {
+	  z-index: 2;
+	}
+	.board-column.muuri-item-dragging {
+	  z-index: 3;
+	  cursor: move;
+	}
+	.board-column-header {
+	  position: relative;
+	  height: 50px;
+	  line-height: 50px;
+	  overflow: hidden;
+	  padding: 0 20px;
+	  text-align: center;
+	  background: #333;
+	  color: #fff;
+	  border-radius: 3px 3px 0 0;
+	}
+	@media (max-width: 600px) {
+	  .board-column-header {
+	    text-indent: -1000px;
+	  }
+	}
+
+	.board-column.tasks {
+		
+		margin-top: 40px; 
+		
+	}
+	.board-column.high {
+		
+		margin-top: 40px; 
+		
+	}
+	.board-column.low {
+		
+		margin-top: 40px; 
+		
+	}
+	.board-column.tasks .board-column-header {
+	  background: darkgrey;
+	}
+	.board-column.high .board-column-header {
+	  background: black;
+	}
+	.board-column.low .board-column-header {
+	  background: lightgrey;
+	}
+	
+	/* This is the secret sauce,
+	   always use a wrapper for setting
+	   the "overflow: scroll/auto" */
+	.board-column-content-wrapper {
+	  position: relative;
+	  
+	  overflow-y: auto;
+	  overflow-x: auto; 
+	}
+	/* Never ever set "overflow: auto/scroll"
+	   to the muuri element, stuff will break */
+	.board-column-content {
+	  position: relative;
+	  border: 10px solid transparent;
+	  min-height: 95px;
+	}
+	.board-item {
+	  position: absolute;
+	  width: 100%;
+	  margin: 5px 0;
+	}
+	.board-item.muuri-item-releasing {
+	  z-index: 9998;
+	}
+	.board-item.muuri-item-dragging {
+	  z-index: 9999;
+	  cursor: move;
+	}
+	.board-item.muuri-item-hidden {
+	  z-index: 0;
+	}
+	.board-item-content {
+	  position: relative;
+	  padding: 20px;
+	  background: #fff;
+	  border-radius: 4px;
+	  font-size: 17px;
+	  cursor: pointer;
+	  -webkit-box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
+	  box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
+	}
+	@media (max-width: 600px) {
+	  .board-item-content {
+	    text-align: center;
+	  }
+	  .board-item-content span {
+	    display: none;
+	  }
+	}
+
+	.left {
+		grid-row: 1 / span 2;
+	}
+
+	.right_top {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	.right_bottom {
+		grid-column: 2;
+		grid-row: 2;
+	}
+
+	.left_inner {
+		background-color: #fedcd2;
+		padding: 0;
+		width: 100%;
+		min-width: 100%;
+		height: 100%;
+		min-height: 100%;
+		text-align: center;
+	}
+
+	.right_top_inner {
+		background-color: #f9cf00;
+		padding: 0;
+		width: 100%;
+		min-width: 100%;
+		height: 100%;
+		min-height: 100%;
+		text-align: center;
+	}
+
+	.right_bottom_inner {
+		background-color: #f8eee7;
+		padding: 0;
+		width: 100%;
+		min-width: 100%;
+		height: 100%;
+		min-height: 100%;
+		text-align: center;
+	}
+	</style>
+</head>
+
+<body>
+	<h1> Understanding Trends </h1>
+	<div class="board">
+	<aside class="left">
+	  <div class="board-column tasks left_inner">
+	    <div class="board-column-header">Questions</div>
+	    <div class="board-column-content-wrapper">
+	      <div class="board-column-content">
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>1</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>2</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>3</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>4</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>5</div></div>
+	      </div>
+	     </div>
+	  </div>
+	</aside>
+	<section class="right_top">
+	  <div class="board-column high right_top_inner">
+	    <div class="board-column-header">High Priority</div>
+	    <div class="board-column-content-wrapper">
+	      <div class="board-column-content">
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>6</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>7</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>8</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>9</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>10</div></div>
+	      </div>
+	    </div>
+	  </div>
+	 </section>
+	 <article class="right_bottom">
+	  <div class="board-column low right_bottom_inner">
+	    <div class="board-column-header">Low Priority</div>
+	    <div class="board-column-content-wrapper">
+	      <div class="board-column-content">
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>11</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>12</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>13</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>14</div></div>
+	        <div class="board-item"><div class="board-item-content"><span>Item #</span>15</div></div>
+	      </div>
+	    </div>
+	  </div>
+	</article>
+	</div>
+
+	
+
+	 
+
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.3.1/web-animations.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+<script src="https://unpkg.com/muuri@0.6.3/dist/muuri.min.js"></script>
+<script type="text/javascript" src="js/muuri-wrap.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+  $(".board-column").resizable();
+</script>
+</body>
+
+
+</html> 
